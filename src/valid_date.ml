@@ -36,7 +36,7 @@ let days_in_date y m =
   | _ -> 30
 
 let valid_date y m d =
-  if y < 1 || d < 0 || d > days_in_date y m then
+  if y < 1 || d < 1 || d > days_in_date y m then
     false
   else
     true
