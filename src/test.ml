@@ -73,14 +73,28 @@ let v2 : matrix = [ [ 1.1; 1.2 ]; [ 2.; 3. ] ]
 type shape =
   | Point of point
   | Circle of point * float
-  | Rect of {left: point;  right: point}
+  | Rect of
+      { left : point
+      ; right : point
+      }
   | A of float list
 
-type 'a mylist = Nil | Cons of 'a * 'a mylist
+type 'a mylist =
+  | Nil
+  | Cons of 'a * 'a mylist
+
 let rec length = function
-| Nil -> 0
-| Cons (_,t) -> 1 + length t
+  | Nil -> 0
+  | Cons (_, t) -> 1 + length t
 
 let empty = function
   | Nil -> true
   | Cons _ -> false
+
+let c = "1234"
+
+let f =
+  try
+    match c with
+    | (s : string) -> failwith s
+  with Failure s -> "failed"
