@@ -1,6 +1,5 @@
 open OUnit2
 open Syracuse
-open Test
 
 let make_test ~name ~expected_output ~input =
   name >:: fun _ ->
