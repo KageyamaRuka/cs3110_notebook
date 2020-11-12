@@ -15,11 +15,12 @@ let rec len stack =
   | [] -> 0
   | i :: t -> 1 + len t
 
+(* 
 let rec range num step start =
   if num < 1 then
     [ start ]
   else
-    start :: range (num - 1) step (start + step)
+    start :: range (num - 1) step (start + step) *)
 
 let update_stack stack =
   match stack with
@@ -43,19 +44,19 @@ let nacci n k =
     if j = k then
       result
     else
-      nacci_iter n k (update_stack stack) (j + 1) (append result (sum stack))
+      nacci_iter n k (update_stack stack) (j + 1) (sum stack)
   in
-  if k <= n then
-    gen_stack k
+  if k < n then
+    sum (gen_stack (k - 1))
   else
-    nacci_iter n k (gen_stack n) n (gen_stack n)
+    nacci_iter n k (gen_stack n) n (sum (gen_stack (n - 1)))
 
 let fib n =
   let rec fib_iter n f1 f2 m =
     if n < 3 then
       1
     else if m = n then
-      f1
+      f2
     else
       fib_iter n f2 (f1 + f2) (m + 1)
   in
