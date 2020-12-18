@@ -1,17 +1,3 @@
-type month =
-  | Jan
-  | Feb
-  | Mar
-  | Apr
-  | May
-  | Jun
-  | Jul
-  | Aug
-  | Sep
-  | Oct
-  | Nov
-  | Dec
-
 let m = 'A'
 
 let a =
@@ -19,23 +5,17 @@ let a =
   | 'A' .. 'Z' -> 1
   | _ -> 2
 
-type mon =
-  { name : string
-  ; hp : int
-  ; ptype : string
-  }
-
 type st =
   { name : string
   ; hp : int
   ; ptype : string
   }
 
-(* let get_hp m =
+let get_hp m =
   let { name; hp; ptype } = m in
-  hp *)
+  hp
 
-let get_hp { name; hp; ptype } = hp
+let get_hp2 : st -> int = fun s -> s.hp
 
 let m = { name = "AB"; hp = 1; ptype = "BA" }
 
@@ -98,3 +78,60 @@ let f =
     match c with
     | (s : string) -> failwith s
   with Failure s -> "failed"
+
+let list_a = [ 1; 2; 3 ]
+
+let result =
+  match list_a with
+  | [] -> 0
+  | [ a; b; c ] -> a + b + c
+  | a :: b -> a
+
+type mon =
+  { name : string
+  ; hp : int
+  }
+
+let fib n =
+  let rec fib_iter n a b m =
+    if m = n then
+      b
+    else
+      fib_iter n b (a + b) (m + 1)
+  in
+  fib_iter n 1 1 2
+
+type student =
+  { no : int
+  ; name : string
+  ; score : int
+  }
+
+type teacher = { name : string }
+
+type people =
+  | Teacher of teacher
+  | Student of student
+
+let tom = { no = 1; name = "tom"; score = 83 }
+
+let a = (1, 2, 3)
+
+let b =
+  match a with
+  | _, _, c -> c
+
+let c = Some 5
+
+type node =
+  { value : int
+  ; next : mylist
+  }
+
+and mylist =
+  | Nil
+  | Node of node
+
+let a = { value = 1; next = Nil }
+
+let b = { value = 2; next = Node a }
