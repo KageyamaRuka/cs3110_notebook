@@ -139,3 +139,26 @@ let b = { value = 2; next = Node a }
 let c = Node { value = 3; next = Nil }
 
 let d = { value = 4; next = c }
+
+type ('a, 'b) t =
+  { n1 : 'a
+  ; n2 : 'b
+  }
+
+let x = { n1 = 2; n2 = "hello" }
+
+let f = function
+  | 0 -> `Infinity
+  | 1 -> `Finite 1
+  | n -> `Finite (-n)
+
+let f = function
+  | 0 -> `Infinity
+  | 1 -> `Finite 1
+  | n -> `Finite (-n)
+
+let c =
+  match f 3 with
+  | `NegInfinity -> "negative infinity"
+  | `Finite n -> "finite"
+  | `Infinity -> "infinite"
