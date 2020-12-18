@@ -135,3 +135,7 @@ and mylist =
 let a = { value = 1; next = Nil }
 
 let b = { value = 2; next = Node a }
+
+let c = Node { value = 3; next = Nil }
+
+let d = { value = 4; next = c }
