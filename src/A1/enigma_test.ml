@@ -41,16 +41,21 @@ let map_rl_tests =
   [ (* Sweep case 1:  this is interesting because it tests a rotor whose wiring
      *   is as simple as possible:  every contact on the LHS connects directly
      *   to the corresponding contact on the RHS. *)
-    ("rl_id0" >:: fun _ -> assert_equal 0 (map_r_to_l rotor_id_wiring 'A' 0))
+    ( "rl_id0" >:: fun _ ->
+      assert_equal 4 (map_r_to_l "EKMFLGDQVZNTOWYHXUSPAIBRCJ" 'A' 0) )
   ; (* Sweep case 2: TODO *)
-
-    (* Sweep case 3: TODO *)
-
-    (* Sweep case 4: TODO *)
-
-    (* Sweep case 5: TODO *)
-
-    (* Other test cases (not part of the sweep) *)
+    ( "rl_id1" >:: fun _ ->
+      assert_equal 1 (map_r_to_l "BACDEFGHIJKLMNOPQRSTUVWXYZ" 'A' 0) )
+  ; (* Sweep case 3: TODO *)
+    ( "rl_id2" >:: fun _ ->
+      assert_equal 25 (map_r_to_l "BACDEFGHIJKLMNOPQRSTUVWXYZ" 'B' 0) )
+  ; (* Sweep case 4: TODO *)
+    ( "rl_id3" >:: fun _ ->
+      assert_equal 0 (map_r_to_l "BACDEFGHIJKLMNOPQRSTUVWXYZ" 'C' 0) )
+  ; (* Sweep case 5: TODO *)
+    ( "rl_id4" >:: fun _ ->
+      assert_equal 9 (map_r_to_l "EKMFLGDQVZNTOWYHXUSPAIBRCJ" 'B' 0) )
+  ; (* Other test cases (not part of the sweep) *)
     ("rl_ex1" >:: fun _ -> assert_equal 4 (map_r_to_l rotor_I_wiring 'A' 0))
   ; ("rl_ex2" >:: fun _ -> assert_equal 9 (map_r_to_l rotor_I_wiring 'B' 0))
   ]

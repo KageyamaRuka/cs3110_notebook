@@ -44,6 +44,10 @@ let index c =
   | 'Z' -> 25
   | _ -> failwith "c is an uppercase letter in A..Z"
 
+let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+let index_reverse wiring n = String.index wiring alphabet.[n]
+
 (* NOTE:  [failwith "Unimplemented"] raises an exception to indicate
    that the function has not been finished.  You should delete that
    line of code and replace it with your own code. *)
@@ -63,11 +67,16 @@ let index c =
  *  - [top_letter] is in 'A'..'Z'
  *  - [input_pos] is in 0..25
  *)
-let map_r_to_l wiring top_letter input_pos = failwith "Unimplemented"
+(* ("rl_id0" >:: fun _ -> assert_equal 0 (map_r_to_l rotor_id_wiring 'A' 0)) *)
+let map_r_to_l wiring top_letter input_pos =
+  let offset = index top_letter in
+  (index wiring.[(input_pos + offset) mod 26] - offset + 26) mod 26
 
 (* [map_l_to_r] computes the same function as [map_r_to_l], except
  * for current flowing left to right. *)
-let map_l_to_r wiring top_letter input_pos = failwith "Unimplemented"
+let map_l_to_r wiring top_letter input_pos =
+  let offset = index top_letter in
+  (index_reverse wiring ((input_pos + offset) mod 26) - offset + 26) mod 26
 
 (*********************************************************)
 (* PART 3 *)
