@@ -89,7 +89,7 @@ let map_l_to_r wiring top_letter input_pos =
  *  - [wiring] is a valid reflector specification.
  *  - [input_pos] is in 0..25
  *)
-let map_refl wiring input_pos = failwith "Unimplemented"
+let map_refl wiring input_pos = map_r_to_l wiring 'A' input_pos
 
 (*********************************************************)
 (* PART 4 *)
@@ -101,7 +101,18 @@ let map_refl wiring input_pos = failwith "Unimplemented"
  *  - [plugs] is a valid plugboard
  *  - [c] is in 'A'..'Z' 
  *)
-let rec map_plug plugs c = failwith "Unimplemented"
+let rec map_plug plugs c =
+  match plugs with
+  | [] -> c
+  | h :: t -> (
+    match h with
+    | a, b ->
+      if a = c then
+        b
+      else if b = c then
+        a
+      else
+        map_plug t c )
 
 (*********************************************************)
 (* PART 5 *)
@@ -129,7 +140,20 @@ type config =
  *  - [config] is a valid configuration
  *  - [c] is in 'A'..'Z'
  *)
-let cipher_char config c = failwith "Unimplemented"
+let cipher_char config c =
+  let rec r_to_l right_input = function
+    | [] -> right_input
+    | h :: t -> map_r_to_l h.rotor.wiring h.top_letter (r_to_l right_input t)
+  in
+  let rec l_to_r left_input = function
+    | [] -> left_input
+    | h :: t -> l_to_r (map_l_to_r h.rotor.wiring h.top_letter left_input) t
+  in
+  map_plug config.plugboard
+    alphabet.[l_to_r
+                (map_refl config.refl
+                   (r_to_l (index (map_plug config.plugboard c)) config.rotors))
+                config.rotors]
 
 (*********************************************************)
 (* PART 6 *)
@@ -139,7 +163,32 @@ let cipher_char config c = failwith "Unimplemented"
  * transitions when it steps beginning in configuration [config].
  * requires: [config] is a valid configuration
  *)
-let step config = failwith "Unimplemented"
+
+type update_result =
+  { result : bool
+  ; rotor : oriented_rotor list
+  }
+
+let update h t_result =
+  let h_updated =
+    { h with top_letter = alphabet.[(index h.top_letter + 1) mod 26] }
+  in
+  if h.top_letter = h.rotor.turnover then
+    { result = true; rotor = h_updated :: t_result.rotor }
+  else if t_result.result = true then
+    { result = false; rotor = h_updated :: t_result.rotor }
+  else
+    { result = false; rotor = h :: t_result.rotor }
+
+let rec update_rotors = function
+  | [] -> { result = true; rotor = [] }
+  | h :: t -> update h (update_rotors t)
+
+let step config =
+  let rotors_result = update_rotors config.rotors in
+  match config.rotors with
+  | [] -> config
+  | h :: t -> { config with rotors = rotors_result.rotor }
 
 (*********************************************************)
 (* PART 7 *)
@@ -151,4 +200,30 @@ let step config = failwith "Unimplemented"
  *   - [config] is a valid configuration 
  *   - [s] contains only uppercase letters
  *)
-let rec cipher config s = failwith "Unimplemented"
+
+let explode s =
+  let rec expl i l =
+    if i < 0 then
+      l
+    else
+      expl (i - 1) (s.[i] :: l)
+  in
+  expl (String.length s - 1) []
+
+let implode l =
+  let result = Bytes.create (List.length l) in
+  let rec imp i = function
+    | [] -> result
+    | c :: l ->
+      Bytes.set result i c;
+      imp (i + 1) l
+  in
+  imp 0 l
+
+let rec cipher config s =
+  let s_list = explode s in
+  let rec f config = function
+    | [] -> []
+    | h :: t -> cipher_char (step config) h :: f (step config) t
+  in
+  Bytes.to_string (implode (f config s_list))

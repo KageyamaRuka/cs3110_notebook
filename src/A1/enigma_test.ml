@@ -62,8 +62,8 @@ let map_rl_tests =
 
 let map_lr_tests =
   [ (* TODO: test sweep *)
-
-    (* Other test cases (not part of the sweep) *)
+    ("lr_ex4" >:: fun _ -> assert_equal 21 (map_l_to_r rotor_I_wiring 'B' 0))
+  ; (* Other test cases (not part of the sweep) *)
     ("lr_ex3" >:: fun _ -> assert_equal 20 (map_l_to_r rotor_I_wiring 'A' 0))
   ]
 
@@ -84,8 +84,11 @@ let map_refl_tests =
 
 let map_plug_tests =
   [ (* TODO: test sweep *)
-
-    (* Other test cases (not part of the sweep) *)
+    ( "plug_id1" >:: fun _ ->
+      assert_equal 'Z' (map_plug [ ('A', 'Z'); ('X', 'Y') ] 'A') )
+  ; ( "plug_id1" >:: fun _ ->
+      assert_equal 'A' (map_plug [ ('Y', 'X'); ('Z', 'A') ] 'Z') )
+  ; (* Other test cases (not part of the sweep) *)
     ("plug_empty" >:: fun _ -> assert_equal 'A' (map_plug [] 'A'))
   ]
 
@@ -145,10 +148,67 @@ let step_ex_config' =
   ; plugboard = []
   }
 
+let step_ex_config1 =
+  { refl = refl_B_wiring
+  ; rotors =
+      [ { rotor = rotor_III; top_letter = 'U' }
+      ; { rotor = rotor_II; top_letter = 'D' }
+      ; { rotor = rotor_I; top_letter = 'P' }
+      ]
+  ; plugboard = []
+  }
+
+let step_ex_config2 =
+  { refl = refl_B_wiring
+  ; rotors =
+      [ { rotor = rotor_III; top_letter = 'U' }
+      ; { rotor = rotor_II; top_letter = 'D' }
+      ; { rotor = rotor_I; top_letter = 'Q' }
+      ]
+  ; plugboard = []
+  }
+
+let step_ex_config3 =
+  { refl = refl_B_wiring
+  ; rotors =
+      [ { rotor = rotor_III; top_letter = 'U' }
+      ; { rotor = rotor_II; top_letter = 'E' }
+      ; { rotor = rotor_I; top_letter = 'R' }
+      ]
+  ; plugboard = []
+  }
+
+let step_ex_config4 =
+  { refl = refl_B_wiring
+  ; rotors =
+      [ { rotor = rotor_III; top_letter = 'V' }
+      ; { rotor = rotor_II; top_letter = 'F' }
+      ; { rotor = rotor_I; top_letter = 'S' }
+      ]
+  ; plugboard = []
+  }
+
+let step_ex_config5 =
+  { refl = refl_B_wiring
+  ; rotors =
+      [ { rotor = rotor_III; top_letter = 'W' }
+      ; { rotor = rotor_II; top_letter = 'F' }
+      ; { rotor = rotor_I; top_letter = 'T' }
+      ]
+  ; plugboard = []
+  }
+
 let step_tests =
   [ (* TODO: test sweep *)
-
-    (* Other test cases (not part of the sweep) *)
+    ( "step_ex14" >:: fun _ ->
+      assert_equal step_ex_config5 (step step_ex_config4) )
+  ; ( "step_ex13" >:: fun _ ->
+      assert_equal step_ex_config4 (step step_ex_config3) )
+  ; ( "step_ex12" >:: fun _ ->
+      assert_equal step_ex_config3 (step step_ex_config2) )
+  ; ( "step_ex11" >:: fun _ ->
+      assert_equal step_ex_config2 (step step_ex_config1) )
+  ; (* Other test cases (not part of the sweep) *)
     ("step_ex1a" >:: fun _ -> assert_equal step_ex_config' (step step_ex_config))
   ]
 
