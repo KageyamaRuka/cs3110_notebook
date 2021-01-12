@@ -20,10 +20,10 @@ else
 fi
 
 OUNIT_VERSION="$(opam info ounit2 -f installed-version 2>&1)"
-if [[ "$OUNIT_VERSION" =~ "2.2.3" ]]; then
-  echo "OUnit version 2.2.3 is active.  Good."
+if [[ "$OUNIT_VERSION" =~ "2.2.4" ]]; then
+  echo "OUnit version 2.2.4 is active.  Good."
 else
-  echo "OUnit version 2.2.3 is NOT active.  This is bad."
+  echo "OUnit version 2.2.4 is NOT active.  This is bad."
   environment=bad
 fi
 
