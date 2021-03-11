@@ -1,5 +1,5 @@
-#directory "_build";;
+(* #directory "_build";; *)
 #use "topfind";;
 #require "oUnit2";;
-#load "mods.cmo";;
-open Mods
+(* #load "mods.cmo";; *)
+(* open Mods *)
