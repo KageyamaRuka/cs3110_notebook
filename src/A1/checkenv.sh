@@ -12,10 +12,10 @@ else
 fi
 
 OCAMLC_VERSION="$(ocamlc --version 2>&1)"
-if [[ "$OCAMLC_VERSION" == "4.11.1" ]]; then
-  echo "OCaml compiler version 4.11.1 is active.  Good."
+if [[ "$OCAMLC_VERSION" == "4.12.0" ]]; then
+  echo "OCaml compiler version 4.12.0 is active.  Good."
 else
-  echo "OCaml compiler version 4.11.1 is NOT active.  This is bad."
+  echo "OCaml compiler version 4.12.0 is NOT active.  This is bad."
   environment=bad
 fi
 
