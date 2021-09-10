@@ -3,13 +3,11 @@
 		"id": "room1",
 		"descriptions": [{
 			"requires": ["key"],
-			"text": "This is Room 1. There is an exit to the north and a locked door to the south.
-Maybe that key could get you through the locked door...\n\nYou should drop the white hat here."
+			"text": "This is Room 1. There is an exit to the north and a locked door to the south.Maybe that key could get you through the locked door...\n\nYou should drop the white hat here."
 		},
 		{
 			"requires": [],
-			"text": "This is Room 1.  There is an exit to the north and a locked door to the south.
-\nYou should drop the white hat here."
+			"text": "This is Room 1.  There is an exit to the north and a locked door to the south.\nYou should drop the white hat here."
 		}],
 		"points": 1,
 		"exits": [{

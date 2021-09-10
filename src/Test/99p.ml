@@ -35,3 +35,8 @@ let reverse =
     | h :: t -> reverse_iter (h :: r) t
   in
   reverse_iter []
+
+(* 6. Find out whether a list is a palindrome. (easy)
+
+   HINT: a palindrome is its own reverse. *)
+let is_palindrome l = reverse l = l

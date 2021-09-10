@@ -10,7 +10,7 @@ type state
 (* [init_state j] is the initial state of the game as
  * determined by JSON object [j].
  * requires: [j] represents an error-free adventure file. *)
-val init_state : Yojson.Basic.json -> state
+val init_state : Yojson.Basic.t -> state
 
 (* [win_score s] is the winning score for the adventure whose current
  * state is represented by [s]. *)
