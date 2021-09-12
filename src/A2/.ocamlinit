@@ -1,0 +1,6 @@
+#directory "_build";;
+#use "topfind";;
+#require "oUnit";;
+#require "yojson";;
+(* #load "mods.cmo";; *)
+(* open Mods *)
